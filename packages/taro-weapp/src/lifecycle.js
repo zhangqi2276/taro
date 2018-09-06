@@ -3,7 +3,7 @@ import {
   internal_safe_set as safeSet
 } from '@tarojs/taro'
 import { componentTrigger } from './create-component'
-import { shakeFnFromObject, isEmptyObject } from './util'
+import { shakeFnFromObject, isEmptyObject, diffObjToPath } from './util'
 
 const privatePropKeyName = '_triggerObserer'
 export function updateComponent (component) {
@@ -16,7 +16,7 @@ export function updateComponent (component) {
     component._disable = false
   }
   // 在willMount前执行构造函数的副本
-  if (!component.__mounted) {
+  if (!component.__componentWillMountTriggered) {
     component._constructor && component._constructor(props)
   }
   let state = component.getState()
@@ -53,7 +53,8 @@ function doUpdate (component) {
   const { state, props = {} } = component
   let data = state || {}
   if (component._createData) {
-    data = component._createData(state, props)
+    // 返回null或undefined则保持不变
+    data = component._createData(state, props) || data
   }
   let privatePropKeyVal = component.$scope.data[privatePropKeyName] || false
 
@@ -78,17 +79,12 @@ function doUpdate (component) {
   }
   // 改变这个私有的props用来触发(observer)子组件的更新
   data[privatePropKeyName] = !privatePropKeyVal
-
-  component.$scope.setData(data, function () {
+  const dataDiff = diffObjToPath(data, component.$scope.data)
+  component.$scope.setData(dataDiff, function () {
     if (component._pendingCallbacks) {
       while (component._pendingCallbacks.length) {
         component._pendingCallbacks.pop().call(component)
       }
-    }
-    if (!component.__mounted) {
-      component.__mounted = true
-      componentTrigger(component, 'componentDidMount')
-      componentTrigger(component, 'componentDidShow')
     }
   })
 }

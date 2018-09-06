@@ -42,8 +42,6 @@ const noPromiseApis = {
   createVideoContext: true,
   createCameraContext: true,
 
-  navigateBack: true,
-
   // 位置
   createMapContext: true,
 
@@ -67,6 +65,7 @@ const noPromiseApis = {
   drawCanvas: true,
   hideKeyboard: true,
   stopPullDownRefresh: true,
+  createIntersectionObserver: true,
 
   // 拓展接口
   arrayBufferToBase64: true,
@@ -113,6 +112,7 @@ const otherApis = {
   clearStorage: true,
 
   // 导航
+  navigateBack: true,
   navigateTo: true,
   redirectTo: true,
   switchTab: true,
@@ -193,6 +193,9 @@ const otherApis = {
   checkSession: true,
   authorize: true,
   getUserInfo: true,
+  checkIsSupportFacialRecognition: true,
+  startFacialRecognitionVerify: true,
+  startFacialRecognitionVerifyAndUploadVideo: true,
   requestPayment: true,
   showShareMenu: true,
   hideShareMenu: true,

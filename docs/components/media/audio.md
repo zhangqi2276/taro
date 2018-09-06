@@ -1,5 +1,9 @@
-##### Audio
-##### 音频。
+---
+title: Audio
+sidebar_label: Audio
+---
+
+##### 音频
 
 > 属性及支持度
 
@@ -15,7 +19,7 @@
 | √ | √ |  | onPlay       | EventHandle |        | 当开始/继续播放时触发play事件                                |
 | √ | √ |  | onPause      | EventHandle |        | 当暂停播放时触发 pause 事件                                  |
 | √ | √ |  | onEnded      | EventHandle |        | 当播放到末尾时触发 ended 事件                                |
-| √ | √ |  | onTimeupdate | EventHandle |        | 播放进度变化时触发，触发频率 250ms 一次 |
+| √ | √ |  | onTimeUpdate | EventHandle |        | 播放进度变化时触发，触发频率 250ms 一次 |
 | √ | √ |  | onError      | EventHandle |        | 视频播放出错时触发                                           |
 
 ###### 示例：
